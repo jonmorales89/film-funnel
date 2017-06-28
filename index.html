@@ -7,6 +7,8 @@
     <link rel = "stylesheet" type = "text/css" href = "style.css">
     <script src = "script.js"></script>
     <script>
+        var popular_movies = [];
+        var movie_index;
         $(document).ready(function(){
             $.ajax({
                 url: 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + api_key + '&language=en-US&page=1',
@@ -14,7 +16,7 @@
                 jsonpCallback: 'testing',
                 success: function(result){
                     console.log("success: ", result);
-                    var popular_movies = result.results;
+                    popular_movies = result.results;
                     displayMovies(popular_movies);
                 },
                 error: function(result){

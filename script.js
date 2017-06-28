@@ -1,29 +1,46 @@
 
-// var popular_movies = [];
+console.log("before initialization");
 // popular movies list
 var api_key = "1c7597f95f188897693c3ccde9dc7a66";
 
 
 
 function displayMovies(popular_movies){
-    console.log("poop: ",popular_movies);
+    // console.log("poop: ",popular_movies);
     for(var i=0; i < popular_movies.length; i++){
 
         var image = $("<img>").attr("src", "https://image.tmdb.org/t/p/original" + popular_movies[i].poster_path);
         var img_link = $("<a>", {href: "review.html"}).append(image);
+        // var img_container = $("<div>").append(image).appendTo(".container");
         var img_container = $("<div>").append(img_link).appendTo(".container");
+
+        img_container.attr("index",i);
         img_container.click(function(){
+           movie_index = $(this).attr("index");
+            // movieInfo(popular_movies[movie_index]);
+            // reddit(popular_movies[movie_index]);
             //have access to popular_movies[i]\
-            doStuff(i, popular_movies);
-            console.log("i: ", i);
-            console.log("popular movies: ", popular_movies);
-            movieInfo(popular_movies[i]);
-            reddit(popular_movies[i]);
+            // doStuff(i, popular_movies);
+            // function doStuff(i,popular_movies){
+            //     var local_i = i;
+            //     console.log("local_i: " + local_i);
+            //     movieInfo(popular_movies[local_i]);
+            //     reddit(popular_movies[local_i]);
+            // }
+            // console.log("i: ", i);
+            // console.log("popular movies: ", popular_movies);
+            // movieInfo(popular_movies[i]);
+            // reddit(popular_movies[i]);
         });
     }
 };
 
-function doStuff
+// function doStuff(i, popular_movies){
+//     var local_i = i;
+//     console.log("local_i: " + local_i);
+//     movieInfo(popular_movies[local_i]);
+//     reddit(popular_movies[local_i]);
+// };
 
 function movieInfo(movieObj){
     //  var api_key = "1c7597f95f188897693c3ccde9dc7a66";
@@ -48,7 +65,7 @@ function movieInfo(movieObj){
 
 
 function reddit(movie) {
-
+    console.log("movie: ",movie);
     // Get title from movie object and split it into an array
     var title = movie.original_title;
     var titleArray = title.split(" ");
@@ -63,7 +80,7 @@ function reddit(movie) {
     }
     redditURL += "discussion";
     redditURL += URLcap;
-    console.log(redditURL);
+    console.log("redditURL: ", redditURL);
 
     // Ajax call to search reddit.com/r/movies for the movie discussion page
     $.ajax({
