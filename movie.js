@@ -8,7 +8,7 @@ function MovieList() {
     //  Variables
     var movies;
     var movieIndex;
-    var RTkey = "hnjcjvwcky4sav26nzsvnw38";
+    var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
 
     /* -------------------------------Initialize Page Function ------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
@@ -16,11 +16,11 @@ function MovieList() {
         console.log("Init MovieObj");
 
         // Get movies
-        var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
+        // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
         $.ajax({
             url: 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1',
             dataType: 'json',
-            jsonpCallback: 'testing',
+            // jsonpCallback: 'testing',
             success: function(result){
                 console.log("success: ", result);
                 movies = result.results;
@@ -50,7 +50,25 @@ function MovieList() {
     /* -------------------------------Movie Info Function ------------------------------------------------ */
     /* --------------------------------------------------------------------------------------------------- */
     function movieInfo() {
-        console.log("MOVIEINFO");
+        $.ajax({
+           url:"https://api.themoviedb.org/3/movie/" + movies[movieIndex].id + " /credits?api_key=" + movie_api_key,
+            success: function(result){
+               console.log(result);
+               $(".cast-div > span").html(result.cast[0].name + ", " + result.cast[1].name + ", " + result.cast[2].name + ", " + result.cast[3].name);
+               for(var i=0; i<result.crew.length; i++){
+                   if(result.crew[i].job === "Director"){
+                       $(".director-div > span").html(result.crew[i].name);
+                   }
+               }
+            }
+        });
+
+        $(".movie-title").html(movies[movieIndex].title);
+        $(".description-div > span").html(movies[movieIndex].overview);
+        $(".contain-img").css("background-image","url(https://image.tmdb.org/t/p/original" + movies[movieIndex].poster_path+ ")");
+        // $("<img>").attr("src", "https://image.tmdb.org/t/p/original" + movies[movieIndex].poster_path).appendTo(".contain-img");
+        $(".rating-div > span").html(movies[movieIndex].vote_average + "/10");
+        // (".contain-img")
     };
 
 
@@ -145,8 +163,8 @@ function MovieList() {
             for(var i = 0; i < videoArray.length;i++){
                 var ytIframe = $('<iframe>').attr({
                     src: 'https://www.youtube.com/embed/' + videoArray[i].id,
-                    width: '560',
-                    height: '315',
+                    width: '100%',
+                    height: '100%',
                     frameborder: '0',
                     allowfullscreen: null,
                 });
@@ -159,7 +177,7 @@ function MovieList() {
                 method: 'POST',
                 url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
                 data: {
-                    q: movieObj.original_title,
+                    q: movieObj.title + 'movie review',
                     maxResults: 3,
                     type: 'video',
                     detailLevel: 'low'
@@ -167,6 +185,8 @@ function MovieList() {
                 success : function(result){
                     //console.log(result.video);
                     displayYouTubeResults(result.video);
+                    var ytTitle =  $('<p>').text('Top YouTube Reviews of ' + movieObj.title);
+                    $('#youtube-container').prepend(ytTitle);
                 },
                 error: function(err){
                     console.log(err);
