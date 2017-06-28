@@ -2,27 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Review</title><script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <title>Review</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "style.css">
-    <script src = "script.js"></script>
+    <script src = "movie.js"></script>
     <script>
-        var popular_movies = [];
-        var movie_index;
         $(document).ready(function(){
-            $.ajax({
-                url: 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + api_key + '&language=en-US&page=1',
-                dataType: 'json',
-                jsonpCallback: 'testing',
-                success: function(result){
-                    console.log("success: ", result);
-                    popular_movies = result.results;
-                    displayMovies(popular_movies);
-                },
-                error: function(result){
-                    console.log("error");
-                }
-            });
+            var movieObj = new MovieList();
+            movieObj.init();
         });
     </script>
 
