@@ -42,27 +42,14 @@ function displayMovies(popular_movies){
 //     reddit(popular_movies[local_i]);
 // };
 
-function movieInfo(movieObj){
-    //  var api_key = "1c7597f95f188897693c3ccde9dc7a66";
-//     $(document).ready(function(){
-    console.log("inside movieinfo function");
-      // $.ajax({
-      //     url: 'https://api.themoviedb.org/3/movie/297762?api_key=' + api_key + '&language=en-US',
-      //     method: "get",
-      //     async: true,
-      //     headers: {},
-      //     data: {},
-      //     crossDomain: true,
-      //     success: function(result){
-      //         console.log("success: ", result);
-      //     },
-      //     error: function(result){
-      //         console.log("error: ", result);
-      //     }
-      // });
-//     });
-}
+//movie portion
 
+function movieInfo(movieObj){
+    console.log("inside movieinfo function");
+
+};
+
+//reddit portion
 
 function reddit(movie) {
     console.log("movie: ",movie);
@@ -137,4 +124,42 @@ function reddit(movie) {
             $("#reddit-container").append(commentDiv);
         }
     }
+};
+
+//youtube portion
+
+function youTube(movieObj){
+    function displayYouTubeResults(videoArray){
+        for(var i = 0; i < videoArray.length;i++){
+            var ytIframe = $('<iframe>').attr({
+                src: 'https://www.youtube.com/embed/' + videoArray[i].id,
+                width: '560',
+                height: '315',
+                frameborder: '0',
+                allowfullscreen: null,
+            });
+            $('#youtube-container').append(ytIframe);
+        }
+    }
+    function searchYouTube(movie_Obj){
+        $.ajax({
+            dataType : 'json',
+            method: 'POST',
+            url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
+            data: {
+                q: movie_Obj.original_title,
+                maxResults: 3,
+                type: 'video',
+                detailLevel: 'low'
+            },
+            success : function(result){
+                console.log(result.video);
+                displayYouTubeResults(result.video);
+            },
+            error: function(err){
+                console.log(err);
+            }
+        })
+    }
+    searchYouTube(movieObj)
 }
