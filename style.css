@@ -50,7 +50,7 @@ small {
 }
 #movie-info {
     width: 100%;
-    height: 25vh;
+    height: 35vh;
     margin-bottom: 2vh;
     border: solid black 1px;
     background-color: lightgray;
@@ -76,6 +76,22 @@ small {
 
 #youtube-container {
     background-color: yellowgreen;
+}
+
+.contain-img{
+    height: 100%;
+    width: 17.5%;
+    float: left;
+    background-size: contain;
+}
+#movie-info div{
+    /*display: inline-block;*/
+}
+
+.contain-info {
+    /*display: inline-block;*/
+    position: relative;
+    width: 80%;
 }
 
 .comment {
