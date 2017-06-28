@@ -42,3 +42,10 @@ header{
 #youtube-container {
     background-color: yellowgreen;
 }
+
+.comment {
+    font-size: 12px;
+    border: solid black 1px;
+    box-sizing: border-box;
+    margin: 5px;
+}
