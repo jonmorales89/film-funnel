@@ -5,11 +5,13 @@
 
 function MovieList() {
 
+    // Declare some variables
     var movies;
     var movieIndex;
     var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
 
 
+    // Initialize Function
     this.init = function() {
         console.log("Init MovieObj");
         $.ajax({
@@ -27,6 +29,7 @@ function MovieList() {
         });
     };
 
+    // Display Movies on Home Page
     function displayMovies(){
         for(var i=0; i < movies.length; i++){
             var image = $("<img>").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
@@ -42,10 +45,16 @@ function MovieList() {
         }
     };
 
+
+    /* -------------------------------Movie Info Function ------------------------------------------------ */
+    /* --------------------------------------------------------------------------------------------------- */
     function movieInfo() {
         console.log("MOVIEINFO");
-    }
+    };
 
+
+    /* ------------------------------ Reddit Function ---------------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
     function reddit() {
         // Get title from movie object and split it into an array
         var title = movies[movieIndex].original_title;
@@ -121,6 +130,12 @@ function MovieList() {
         }
     }
 
+
+
+
+
+    /* -------------------------------- YouTube Function ------------------------------------------------  */
+    /* --------------------------------------------------------------------------------------------------- */
     function youTube(){
         function displayYouTubeResults(videoArray){
             for(var i = 0; i < videoArray.length;i++){
@@ -157,6 +172,9 @@ function MovieList() {
         searchYouTube(movies[movieIndex]);
     }
 
+
+    /* ----------------------------------------Load Review Page Function---------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
     function loadPage(){
         $.ajax({
             url: "review.html",
