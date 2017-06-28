@@ -25,7 +25,9 @@ header{
     text-align: center;
     background-color: black;
     color: white;
-    box-shadow: 0 10px 5px rgba(3,3,3,0.5)
+    box-shadow: 0 10px 5px rgba(3,3,3,0.5);
+    position:relative;
+    z-index:2;
 }
 header > p{
     font-size: 2em;
@@ -40,7 +42,7 @@ small {
     position: relative;
     bottom: 20px;
 }
-.container {
+#main-content {
     background-color: #bdbdbd;
     position: relative;
     z-index: 1;
