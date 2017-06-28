@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "style.css">
     <script src = "script.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + api_key + '&language=en-US&page=1',
+                dataType: 'json',
+                jsonpCallback: 'testing',
+                success: function(result){
+                    console.log("success: ", result);
+                    var popular_movies = result.results;
+                    displayMovies(popular_movies);
+                },
+                error: function(result){
+                    console.log("error");
+                }
+            });
+        });
+    </script>
+
 </head>
 <body>
     <header>make movies great again</header>
