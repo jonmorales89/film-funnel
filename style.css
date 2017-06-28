@@ -100,7 +100,7 @@ small {
 }
 
 .comment {
-    font-size: 12px;
+    font-size: 1rem;
     border: solid black 1px;
     box-sizing: border-box;
     margin: 5px;

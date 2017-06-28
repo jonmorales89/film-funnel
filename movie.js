@@ -72,7 +72,7 @@ function MovieList() {
     };
 
 
-    /* ------------------------------ Reddit Function ---------------------------------------------------- */
+    /* ------------------------------ RottenTomatoes Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function reddit() {
         // Get title from movie object and split it into an array
@@ -88,7 +88,7 @@ function MovieList() {
         for (var i = 0; i < titleArray.length; i++) {
             redditURL += titleArray[i] + "+";
         }
-        redditURL += "review+megathread";
+        redditURL += "discussion";
         redditURL += URLcap;
         console.log("redditURL: ", redditURL);
 
@@ -143,14 +143,16 @@ function MovieList() {
         }
 
         function displayComments(comments) {
+            count = 0;
             for(var i = 0; i < comments.length; i++) {
+                if(count > 9) {break;}
+                if(comments[i].length < 400 || comments[i].length > 1000) {continue;}
+                count++;
                 var commentDiv = $("<div>").addClass("comment").text(comments[i]);
                 $("#reddit-container").append(commentDiv);
             }
         }
     }
-
-
 
 
 
@@ -181,7 +183,7 @@ function MovieList() {
                     detailLevel: 'low'
                 },
                 success : function(result){
-                    console.log(result.video);
+                    //console.log(result.video);
                     displayYouTubeResults(result.video);
                     var ytTitle =  $('<p>').text('Top YouTube Reviews of ' + movieObj.title);
                     $('#youtube-container').prepend(ytTitle);
