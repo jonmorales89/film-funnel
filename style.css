@@ -42,3 +42,19 @@ header{
 #youtube-container {
     background-color: yellowgreen;
 }
+.contain-img{
+    height: 100%;
+    width: 20%;
+    float: left;
+    background-size: contain;
+}
+#movie-info div{
+    display: inline-block;
+}
+
+.contain-info{
+    /*display: inline-block;*/
+    position: relative;
+    width: 80%;
+
+}
