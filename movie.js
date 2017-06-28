@@ -142,8 +142,8 @@ function MovieList() {
             for(var i = 0; i < videoArray.length;i++){
                 var ytIframe = $('<iframe>').attr({
                     src: 'https://www.youtube.com/embed/' + videoArray[i].id,
-                    width: '560',
-                    height: '315',
+                    width: '100%',
+                    height: '100%',
                     frameborder: '0',
                     allowfullscreen: null,
                 });
@@ -156,7 +156,7 @@ function MovieList() {
                 method: 'POST',
                 url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
                 data: {
-                    q: movieObj.original_title,
+                    q: movieObj.title + 'movie review',
                     maxResults: 3,
                     type: 'video',
                     detailLevel: 'low'
@@ -164,6 +164,8 @@ function MovieList() {
                 success : function(result){
                     console.log(result.video);
                     displayYouTubeResults(result.video);
+                    var ytTitle =  $('<p>').text('Top YouTube Reviews of ' + movieObj.title);
+                    $('#youtube-container').prepend(ytTitle);
                 },
                 error: function(err){
                     console.log(err);

@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    background-color: #bdbdbd;
 }
 img{
     width: 100%;
@@ -46,7 +47,6 @@ small {
     background-color: #bdbdbd;
     position: relative;
     z-index: 1;
-    overflow: hidden;
 }
 #movie-info {
     width: 100%;
@@ -76,6 +76,13 @@ small {
 
 #youtube-container {
     background-color: yellowgreen;
+}
+
+#youtube-container > p {
+    font-family: 'Bungee',cursive;
+    font-size: 1.1rem;
+    text-align: center;
+    color: white;
 }
 
 .comment {
