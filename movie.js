@@ -5,15 +5,18 @@
 
 function MovieList() {
 
-    // Declare some variables
+    //  Variables
     var movies;
     var movieIndex;
     var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
 
-
-    // Initialize Function
+    /* -------------------------------Initialize Page Function ------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
     this.init = function() {
         console.log("Init MovieObj");
+
+        // Get movies
+        // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
         $.ajax({
             url: 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1',
             dataType: 'json',
@@ -21,7 +24,7 @@ function MovieList() {
             success: function(result){
                 console.log("success: ", result);
                 movies = result.results;
-                displayMovies();
+                loadMainPage();
             },
             error: function(result){
                 console.log("error");
@@ -29,18 +32,16 @@ function MovieList() {
         });
     };
 
-    // Display Movies on Home Page
+    /* -------------------------------Display Movies Function -------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
     function displayMovies(){
         for(var i=0; i < movies.length; i++){
             var image = $("<img>").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
-            //var img_link = $("<a>", {href: "review.html"}).append(image);
-            // var img_container = $("<div>").append(img_link).appendTo(".container");
             var img_container = $("<div>").append(image).appendTo(".container");
-
             img_container.attr("index",i);
             img_container.click(function(){
                 movieIndex = $(this).attr("index");
-                loadPage();
+                loadReviewPage();
             });
         }
     };
@@ -87,7 +88,7 @@ function MovieList() {
         for (var i = 0; i < titleArray.length; i++) {
             redditURL += titleArray[i] + "+";
         }
-        redditURL += "discussion";
+        redditURL += "review+megathread";
         redditURL += URLcap;
         console.log("redditURL: ", redditURL);
 
@@ -111,6 +112,7 @@ function MovieList() {
             var url = data.data.children[0].data.url;
 
             // Add .json to use the API
+            var sort = "?sort=confidence";
             var newURL = url + ".json";
 
             // Ajax call to get the discussion page json
@@ -193,11 +195,15 @@ function MovieList() {
 
     /* ----------------------------------------Load Review Page Function---------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
-    function loadPage(){
+    function loadReviewPage(){
+
+        // Add click listener to title
+        $("header").click(loadMainPage);
+
         $.ajax({
             url: "review.html",
             success: function(data) {
-                $("body").html(data);
+                $("#main-content").html(data);
                 reddit();
                 youTube();
                 movieInfo();
@@ -205,4 +211,19 @@ function MovieList() {
         });
     }
 
+    /* ----------------------------------------Load Main Page Function---------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
+    function loadMainPage() {
+
+        // Remove click listener from title
+        $("header").off();
+
+        $.ajax({
+            url: "main.html",
+            success: function(data) {
+                $("#main-content").html(data);
+                displayMovies();
+            }
+        })
+    }
 }
