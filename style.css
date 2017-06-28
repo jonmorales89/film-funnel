@@ -52,8 +52,8 @@ small {
     width: 100%;
     height: 35vh;
     margin-bottom: 2vh;
-    border: solid black 1px;
-    background-color: lightgray;
+    border: solid transparent 1px;
+    padding: 30px;
 }
 
 #review-container {
@@ -88,6 +88,7 @@ small {
     width: 17.5%;
     float: left;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 #movie-info div{
     /*display: inline-block;*/
