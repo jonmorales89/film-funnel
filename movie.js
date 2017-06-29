@@ -17,8 +17,9 @@ function MovieList() {
         $("button").click(abc);
         // Get movies
         // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
-        makeMovieAjaxCall('https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1');
-
+        // makeMovieAjaxCall('https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1');
+        makeMovieAjaxCall('https://api.themoviedb.org/3/genre/80/movies?api_key=1c7597f95f188897693c3ccde9dc7a66&language=en-US&include_adult=false&sort_by=created_at.asc');
+    //
 
     };
 
@@ -45,14 +46,26 @@ function MovieList() {
     /* --------------------------------------------------------------------------------------------------- */
     function displayMovies(){
         for(var i=0; i < movies.length; i++){
-            var image = $("<img>").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
-            var img_container = $("<div>").append(image).appendTo(".container");
+            var image = $("<img>").addClass("fade").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
+            var modal = $("<div>").addClass("movie_modal hidden_div");
+            var modal_title = $("<div>").html(movies[i].title).appendTo(modal);
+            var modal_description = $("<div>").addClass("modal_description").html(movies[i].overview).appendTo(modal);
+            var img_container = $("<div>").addClass("contain-poster").css("position","relative").append(modal, image).appendTo(".container");
             img_container.attr("index",i);
             img_container.click(function(){
                 movieIndex = $(this).attr("index");
                 loadReviewPage();
             });
-        }
+            img_container.mouseenter(function(){
+                console.log(this);
+                // $(this).addClass("overlay");
+                $(this).children(".movie_modal").removeClass("hidden_div");
+            });
+            img_container.mouseleave(function(){
+                console.log(this);
+                // $(this).removeClass("overlay");
+                $(this).children(".movie_modal").addClass("hidden_div");
+            });        }
     };
 
 
@@ -230,7 +243,7 @@ function MovieList() {
     function loadMainPage() {
 
         // Remove click listener from title
-        $("header").off();
+        // $("header").off();
 
         $.ajax({
             url: "main.html",
