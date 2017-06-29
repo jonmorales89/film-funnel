@@ -43,6 +43,12 @@ header > div:first-child{
     bottom: 10%;
     left: 3%;
 }
+#movie-list-title{
+    padding-left: 3%;
+    font-family: 'Bungee', cursive;
+    color: white;
+    font-size: 1.7em;
+}
 #genre-menu{
     font-family: 'Bungee',cursive;
     padding-left: 10px;
@@ -53,6 +59,12 @@ small {
     font-weight: bold;
     position: relative;
     bottom: 20px;
+}
+.fa {
+    color: red;
+}
+.fa-search{
+    cursor: pointer;
 }
 #main-content {
     background-color: #bdbdbd;
@@ -132,17 +144,17 @@ iframe {
 }
 
 .comment {
-    font-size: .8rem;
+    font-size: 1.4rem;
     box-sizing: border-box;
     background-color: #bdbdbd;
-    font-family: 'Bungee',cursive;
+    font-family: 'Bungee Hairline',cursive;
     color: black;
     padding: 15px;
     margin-bottom: 2%;
-
     margin-left: 20px;
     margin-right: 20px;
     box-shadow: 0px 0px 15px 0px rgba(3,3,3,0.5);
+    font-weight: bolder;
 }
 .searchWrapper {
     position: absolute;
