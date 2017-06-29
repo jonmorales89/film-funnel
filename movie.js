@@ -11,15 +11,18 @@ function MovieList() {
     var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
     var test = "test";
     var self = this;
-    var genres = [{"id": 28, "name": "Action"}, {"id": 12, "name": "Adventure"}, {"id": 16, "name": "Animation"}, {"id": 35, "name": "Comedy"}, {"id": 80, "name": "Crime"}, {"id": 99, "name": "Documentary"}, {"id": 18, "name": "Drama"}, {"id": 10751, "name": "Family"}, {"id": 14, "name": "Fantasy"}, {"id": 36, "name": "History"}, {"id": 27, "name": "Horror"}, {"id": 10402, "name": "Music"}, {"id": 9648, "name": "Mystery"}, {"id": 10749, "name": "Romance"}, {"id": 878, "name": "Science Fiction"}, {"id": 10770, "name": "TV Movie"}, {"id": 53, "name": "Thriller"}, {"id": 10752, "name": "War"}, {"id": 37, "name": "Western"}]
+    var genres = [{"id": 28, "name": "Action"}, {"id": 12, "name": "Adventure"}, {"id": 16, "name": "Animation"}, {"id": 35, "name": "Comedy"}, {"id": 80, "name": "Crime"}, {"id": 99, "name": "Documentary"}, {"id": 18, "name": "Drama"}, {"id": 10751, "name": "Family"}, {"id": 14, "name": "Fantasy"}, {"id": 36, "name": "History"}, {"id": 27, "name": "Horror"}, {"id": 10402, "name": "Music"}, {"id": 9648, "name": "Mystery"}, {"id": 10749, "name": "Romance"}, {"id": 878, "name": "Science Fiction"}, {"id": 53, "name": "Thriller"}, {"id": 10752, "name": "War"}, {"id": 37, "name": "Western"}]
 
     /* -------------------------------Initialize Page Function ------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     this.init = function() {
         // Get movies
-        // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
-        // makeMovieAjaxCall('https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1');
         this.getNewMovieList('popular');
+
+        for(var i = 0; i < genres.length; i++) {
+            var option = $("<option>").attr("value", genres[i].id).text(genres[i].name);
+            $("#genre-menu").append(option);
+        }
     };
 
 
@@ -71,6 +74,9 @@ function MovieList() {
             var modal = $("<div>").addClass("movie_modal hidden_div");
             var modal_title = $("<div>").html(movies[i].title).appendTo(modal);
             var modal_description = $("<div>").addClass("modal_description").html(movies[i].overview).appendTo(modal);
+            if(movies[i].overview.length > 500) {
+                modal_description.css("color", "red");
+            }
             var img_container = $("<div>").addClass("contain-poster").css("position","relative").append(modal, image).appendTo(".container");
             img_container.attr("index",i);
             img_container.click(function(){
