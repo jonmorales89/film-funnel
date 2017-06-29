@@ -8,20 +8,52 @@
     <link rel = "stylesheet" type = "text/css" href = "style.css">
     <link href="https://fonts.googleapis.com/css?family=Bungee|Bungee+Hairline" rel="stylesheet">
     <script src = "movie.js"></script>
+    <script src="https://use.fontawesome.com/152bc9385f.js"></script>
     <script>
         $(document).ready(function(){
             var movieObj = new MovieList();
             movieObj.init();
+
+            $(" .searchWrapper button").click(function(){
+                var query = $(".searchWrapper input").val();
+                if(query != ""){
+                    movieObj.getNewMovieList("search", query);
+                }
+            });
+
+            // Add change handler to dropdown
+            $("#genre-menu").change(function(){
+                console.log("HEre");
+                var genre = $("#genre-menu").val();
+                movieObj.getNewMovieList("genre", genre);
+            });
         });
+
+//        window.onscroll = function(ev) {
+//            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+//                console.log("you're at the bottom of the page");
+//            }
+//        };
     </script>
 
 </head>
 <body>
     <header>
+        <div>
+            <select id = "genre-menu">
+                <option value="" disabled selected>Genre</option>
+                <option value="28">Action</option>
+                <option value="18">Drama</option>
+                <option value="35">Comedy</option>
+                <option value="878">Sci-Fi</option>
+            </select>
+        </div>
         <p>make movies great again!</p>
         <small>for the people by the people</small>
-        <input value="anchorman">
-        <button>search</button>
+        <div class="searchWrapper">
+            <input placeholder="search">
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
     </header>
     <div id = "main-content"></div>
 </body>

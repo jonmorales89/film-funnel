@@ -9,42 +9,55 @@ function MovieList() {
     var movies;
     var movieIndex;
     var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
+    var test = "test";
+    var self = this;
 
     /* -------------------------------Initialize Page Function ------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     this.init = function() {
-        console.log("Init MovieObj");
-        $("button").click(abc);
         // Get movies
         // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
         // makeMovieAjaxCall('https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1');
-        makeMovieAjaxCall('https://api.themoviedb.org/3/genre/80/movies?api_key=1c7597f95f188897693c3ccde9dc7a66&language=en-US&include_adult=false&sort_by=created_at.asc');
-    //
-
+        this.getNewMovieList('popular');
     };
+    
 
-    function makeMovieAjaxCall(url_link){
+    /* -------------------------------Get New Movies Function -------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
+    this.getNewMovieList = function(type, inputData){
+        var url;
+        console.log(type, inputData);
+        switch(type) {
+            case "popular":
+                url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1';
+                break;
+            case "search":
+                url = "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + inputData + "&page=1&include_adult=false";
+                break;
+            case "genre":
+                url = "https://api.themoviedb.org/3/genre/" + inputData + "/movies?api_key=1c7597f95f188897693c3ccde9dc7a66&language=en-US&include_adult=false&sort_by=created_at.asc";
+                break;
+        }
+        console.log(url);
+
         $.ajax({
-            url : url_link ,
-//             url: "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false",
-            //
+            url: url,
             dataType: 'json',
-            // jsonpCallback: 'testing',
-            success: function(result){
-                console.log("success: ", result);
+            success: function(result) {
                 movies = result.results;
                 loadMainPage();
             },
-            error: function(result){
-                console.log("error");
+            error: function(err) {
+                console.log(err);
             }
-        });
-    }
+        })
+    };
 
 
     /* -------------------------------Display Movies Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function displayMovies(){
+        console.log("Display Movies: ", movies);
         for(var i=0; i < movies.length; i++){
             var image = $("<img>").addClass("fade").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
             var modal = $("<div>").addClass("movie_modal hidden_div");
@@ -94,7 +107,7 @@ function MovieList() {
     };
 
 
-    /* ------------------------------ RottenTomatoes Function -------------------------------------------- */
+    /* ------------------------------ Reddit Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function reddit() {
         // Get title from movie object and split it into an array
@@ -133,6 +146,13 @@ function MovieList() {
             console.log("data: ", data);
             // Get URL from top post on page
             var url = data.data.children[0].data.url;
+            for(var i = 0; i < data.data.children.length; i++){
+                console.log(data.data.children[i]);
+               // var postTitle = data.data.children[i].title.toLowerCase();
+               //  if(postTitle.includes(title.toLowerCase())) {
+               //      url = data.data.children[i].data.url;
+               //  }
+            }
 
             // Add .json to use the API
             var sort = "?sort=confidence";
@@ -174,8 +194,6 @@ function MovieList() {
                 var commentDiv = $("<div>").addClass("comment").text(comments[i]);
                 $("#reddit-container").append(commentDiv);
             }
-            var rTitle = $('<p>').text("Top Reddit Comments");
-            $("#reddit-container").prepend(rTitle);
         }
     }
 
@@ -191,7 +209,7 @@ function MovieList() {
                     frameborder: '0',
                     allowfullscreen: ''
                 });
-                $('#youtube-container').append(ytIframe);
+                $('.iframeWrapper').append(ytIframe);
             }
         }
         function searchYouTube(movieObj){
@@ -206,10 +224,10 @@ function MovieList() {
                     detailLevel: 'low'
                 },
                 success : function(result){
-                    //console.log(result.video);
+                    //console.log(result.video);d
                     displayYouTubeResults(result.video);
                     var ytTitle =  $('<p>').text('Top YouTube Reviews of ' + movieObj.title);
-                    $('#youtube-container').prepend(ytTitle);
+                    $('.ytTitle').append(ytTitle);
                 },
                 error: function(err){
                     console.log(err);
@@ -241,7 +259,6 @@ function MovieList() {
     /* ----------------------------------------Load Main Page Function---------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function loadMainPage() {
-
         // Remove click listener from title
         // $("header").off();
 
@@ -252,26 +269,6 @@ function MovieList() {
                 displayMovies();
             }
         })
-    }
-
-
-    function abc(){
-        makeMovieAjaxCall("https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false");
-        // $.ajax({
-        //     url: "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false",
-        //     method: "get",
-        //     headers: {},
-        //     data: {},
-        //     dataType: "json",
-        //     success : function(result){
-        //         console.log("success: ",result);
-        //         $("#main-content").html("<p> search results <p>");
-        //         makeMovieAjaxCall()
-        //     },
-        //     error: function(result){
-        //         console.log("error: ", result);
-        //     }
-        // })
     }
 }
 
