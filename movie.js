@@ -20,13 +20,12 @@ function MovieList() {
         // makeMovieAjaxCall('https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1');
         this.getNewMovieList('popular');
     };
-    
+
 
     /* -------------------------------Get New Movies Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     this.getNewMovieList = function(type, inputData){
         var url;
-        console.log(type, inputData);
         switch(type) {
             case "popular":
                 url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1';
@@ -57,7 +56,6 @@ function MovieList() {
     /* -------------------------------Display Movies Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function displayMovies(){
-        console.log("Display Movies: ", movies);
         for(var i=0; i < movies.length; i++){
             var image = $("<img>").addClass("fade").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
             var modal = $("<div>").addClass("movie_modal hidden_div");
@@ -88,7 +86,6 @@ function MovieList() {
         $.ajax({
            url:"https://api.themoviedb.org/3/movie/" + movies[movieIndex].id + " /credits?api_key=" + movie_api_key,
             success: function(result){
-               console.log(result);
                $(".cast-div > span").html(result.cast[0].name + ", " + result.cast[1].name + ", " + result.cast[2].name + ", " + result.cast[3].name);
                for(var i=0; i<result.crew.length; i++){
                    if(result.crew[i].job === "Director"){
@@ -107,12 +104,11 @@ function MovieList() {
     };
 
 
-    /* ------------------------------ Reddit Function -------------------------------------------- */
+    /* ------------------------------ Reddit Function ---------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function reddit() {
         // Get title from movie object and split it into an array
         var title = movies[movieIndex].original_title;
-        console.log("movie: ", title);
         var titleArray = title.split(" ");
 
         // Declare some variables
@@ -125,7 +121,6 @@ function MovieList() {
         }
         redditURL += "discussion";
         redditURL += URLcap;
-        console.log("redditURL: ", redditURL);
 
         // Ajax call to search reddit.com/r/movies for the movie discussion page
         $.ajax({
@@ -133,27 +128,30 @@ function MovieList() {
             dataType: 'json',
             method: 'GET',
             success: function(result) {
-                console.log("Successfully connected to reddit");
                 getDiscussion(result);
             },
-            error: function(result) {
-                console.log("ERROR");
-                console.log(result);
+            error: function() {
+                failSafe();
+                return;
             }
         });
 
         function getDiscussion(data) {
-            console.log("data: ", data);
             // Get URL from top post on page
-            var url = data.data.children[0].data.url;
-            for(var i = 0; i < data.data.children.length; i++){
-                console.log(data.data.children[i]);
-               // var postTitle = data.data.children[i].title.toLowerCase();
-               //  if(postTitle.includes(title.toLowerCase())) {
-               //      url = data.data.children[i].data.url;
-               //  }
+            try {
+                var url = data.data.children[0].data.url;
+                for(var i = 0; i < data.data.children.length; i++){
+                    var postTitle = data.data.children[i].data.title.toLowerCase();
+                    if(postTitle.includes(title.toLowerCase())) {
+                        url = data.data.children[i].data.url;
+                        break;
+                    }
+                }
+            } catch(err){
+                failSafe();
+                return;
             }
-
+            console.log(url);
             // Add .json to use the API
             var sort = "?sort=confidence";
             var newURL = url + ".json";
@@ -168,8 +166,8 @@ function MovieList() {
                     getComments(result);
                 },
                 error: function(result) {
-                    console.log("ERROR");
-                    console.log(result);
+                    failSafe();
+                    return;
                 }
             })
         }
@@ -194,6 +192,12 @@ function MovieList() {
                 var commentDiv = $("<div>").addClass("comment").text(comments[i]);
                 $("#reddit-container").append(commentDiv);
             }
+        }
+
+        function failSafe() {
+            console.log("failsafe");
+            var fail = $("<div>").addClass("fail").text("Reddit has nothing to say about this movie");
+            $("#reddit-container").append(fail);
         }
     }
 

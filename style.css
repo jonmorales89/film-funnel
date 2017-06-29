@@ -150,6 +150,7 @@ iframe {
     padding-left: 10px;
 }
 
+
 .movie_modal{
     position: absolute;
     height: 100%;
@@ -179,4 +180,10 @@ iframe {
 .modal_description {
     font-size: 12px;
     margin-top: 5%;
+}
+.fail {
+    font-size: 25px;
+    font-family: "Bungee", cursive;
+    text-align: center;
+    padding-top: 100px;
 }
