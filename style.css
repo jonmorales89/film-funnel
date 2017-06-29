@@ -37,6 +37,16 @@ header > p{
     position: relative;
     top: 10px;
 }
+header > div:first-child{
+    position: absolute;
+    display: inline-block;
+    bottom: 10%;
+    left: 3%;
+}
+#genre-menu{
+    font-family: 'Bungee',cursive;
+    padding-left: 10px;
+}
 small {
     font-family: 'Bungee Hairline', cursive;
     font-size: 1.5em;
@@ -93,13 +103,15 @@ small {
     box-shadow: 0 10px 15px rgba(3,3,3,0.5);
     height: 62px;
 }
+.iframeWrapper{
+    height: 100%;
+    padding: 0 20px;
+}
 iframe {
     width: 100%;
     height: 23%;
     margin-bottom: 2%;
-}
-#youtube-container iframe:last-child {
-    padding-bottom: 0;
+    box-shadow: 0px 0px 10px 2px rgba(3,3,3,0.5);
 }
 .contain-img{
     height: 100%;
