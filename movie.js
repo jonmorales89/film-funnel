@@ -9,56 +9,53 @@ function MovieList() {
     var movies;
     var movieIndex;
     var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
+    var test = "test";
+    var self = this;
 
     /* -------------------------------Initialize Page Function ------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     this.init = function() {
-        console.log("Init MovieObj");
-        $("button").click(abc);
         // Get movies
-        // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
-        makeMovieAjaxCall('https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1');
-
-
+        this.getNewMovieList('popular');
     };
+    
 
-    function makeMovieAjaxCall(url_link){
-        $.ajax({
-            url : url_link ,
-//             url: "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false",
-            //
-            dataType: 'json',
-            // jsonpCallback: 'testing',
-            success: function(result){
-                console.log("success: ", result);
-                movies = result.results;
-                loadMainPage();
-            },
-            error: function(result){
-                console.log("error");
-            }
-        });
-    }
-
-
-
-    /* -------------------------------Display Movies Function -------------------------------------------- */
+    /* -------------------------------Get New Movies Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
-    this.getNewMovieObject = function(type, inputData){
+    this.getNewMovieList = function(type, inputData){
         var url;
+        console.log(type, inputData);
         switch(type) {
             case "popular":
                 url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1';
                 break;
             case "search":
-                url = 
+                url = "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + inputData + "&page=1&include_adult=false";
+                break;
+            case "genre":
+                url = "https://api.themoviedb.org/3/genre/" + inputData + "/movies?api_key=1c7597f95f188897693c3ccde9dc7a66&language=en-US&include_adult=false&sort_by=created_at.asc";
+                break;
         }
+        console.log(url);
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            success: function(result) {
+                movies = result.results;
+                loadMainPage();
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        })
     };
 
 
     /* -------------------------------Display Movies Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function displayMovies(){
+        console.log("Display Movies: ", movies);
         for(var i=0; i < movies.length; i++){
             var image = $("<img>").attr("src", "https://image.tmdb.org/t/p/original" + movies[i].poster_path);
             var img_container = $("<div>").append(image).appendTo(".container");
@@ -248,7 +245,6 @@ function MovieList() {
     /* ----------------------------------------Load Main Page Function---------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function loadMainPage() {
-
         // Remove click listener from title
         $("header").off();
 
@@ -259,26 +255,6 @@ function MovieList() {
                 displayMovies();
             }
         })
-    }
-
-
-    function abc(){
-        makeMovieAjaxCall("https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false");
-        // $.ajax({
-        //     url: "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false",
-        //     method: "get",
-        //     headers: {},
-        //     data: {},
-        //     dataType: "json",
-        //     success : function(result){
-        //         console.log("success: ",result);
-        //         $("#main-content").html("<p> search results <p>");
-        //         makeMovieAjaxCall()
-        //     },
-        //     error: function(result){
-        //         console.log("error: ", result);
-        //     }
-        // })
     }
 }
 

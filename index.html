@@ -13,6 +13,20 @@
         $(document).ready(function(){
             var movieObj = new MovieList();
             movieObj.init();
+
+            $(" .searchWrapper button").click(function(){
+                var query = $(".searchWrapper input").val();
+                if(query != ""){
+                    movieObj.getNewMovieList("search", query);
+                }
+            });
+
+            // Add change handler to dropdown
+            $("#genre-menu").change(function(){
+                console.log("HEre");
+                var genre = $("#genre-menu").val();
+                movieObj.getNewMovieList("genre", genre);
+            });
         });
 
 //        window.onscroll = function(ev) {
@@ -25,6 +39,15 @@
 </head>
 <body>
     <header>
+        <div>
+            <select id = "genre-menu">
+                <option value="" disabled selected>Genre</option>
+                <option value="28">Action</option>
+                <option value="18">Drama</option>
+                <option value="35">Comedy</option>
+                <option value="878">Sci-Fi</option>
+            </select>
+        </div>
         <p>make movies great again!</p>
         <small>for the people by the people</small>
         <div class="searchWrapper">
