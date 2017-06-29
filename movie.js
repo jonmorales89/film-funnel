@@ -14,7 +14,7 @@ function MovieList() {
     /* --------------------------------------------------------------------------------------------------- */
     this.init = function() {
         console.log("Init MovieObj");
-
+        $("button").click(abc);
         // Get movies
         // var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
         $.ajax({
@@ -231,4 +231,23 @@ function MovieList() {
             }
         })
     }
+
+
+    function abc(){
+        $.ajax({
+            url: "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + $("input").val()+ "&page=1&include_adult=false",
+            method: "get",
+            headers: {},
+            data: {},
+            dataType: "json",
+            success : function(result){
+                console.log("success: ",result);
+            },
+            error: function(result){
+                console.log("error: ", result);
+            }
+        })
+    }
+
 }
+
