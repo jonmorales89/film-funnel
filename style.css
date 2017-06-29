@@ -128,3 +128,20 @@ iframe {
     padding: 15px;
     margin-bottom: 2%;
 }
+.searchWrapper {
+    position: absolute;
+    display: inline-block;
+    right: 3%;
+}
+.searchWrapper > button {
+    position: relative;
+    right: 16%;
+    border-style: none;
+    background-color: transparent;
+}
+.searchWrapper > input {
+    border-radius: 20px;
+    border-style: none;
+    font-family: 'Bungee', cursive;
+    padding-left: 10px;
+}

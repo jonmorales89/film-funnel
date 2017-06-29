@@ -8,6 +8,7 @@
     <link rel = "stylesheet" type = "text/css" href = "style.css">
     <link href="https://fonts.googleapis.com/css?family=Bungee|Bungee+Hairline" rel="stylesheet">
     <script src = "movie.js"></script>
+    <script src="https://use.fontawesome.com/152bc9385f.js"></script>
     <script>
         $(document).ready(function(){
             var movieObj = new MovieList();
@@ -20,8 +21,10 @@
     <header>
         <p>make movies great again!</p>
         <small>for the people by the people</small>
-        <input value="anchorman">
-        <button>search</button>
+        <div class="searchWrapper">
+            <input placeholder="search">
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
     </header>
     <div id = "main-content"></div>
 </body>
