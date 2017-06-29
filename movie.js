@@ -74,9 +74,6 @@ function MovieList() {
             var modal = $("<div>").addClass("movie_modal hidden_div");
             var modal_title = $("<div>").html(movies[i].title).appendTo(modal);
             var modal_description = $("<div>").addClass("modal_description").html(movies[i].overview).appendTo(modal);
-            if(movies[i].overview.length > 500) {
-                modal_description.css("color", "red");
-            }
             var img_container = $("<div>").addClass("contain-poster").css("position","relative").append(modal, image).appendTo(".container");
             img_container.attr("index",i);
             img_container.click(function(){
@@ -263,7 +260,7 @@ function MovieList() {
     function loadReviewPage(){
 
         // Add click listener to title
-        $("header").click(loadMainPage);
+        $(".home-click").click(loadMainPage);
 
         $.ajax({
             url: "review.html",
