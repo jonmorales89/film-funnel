@@ -32,6 +32,21 @@ function MovieList() {
         });
     };
 
+
+    /* -------------------------------Display Movies Function -------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------- */
+    this.getNewMovieObject = function(type, inputData){
+        var url;
+        switch(type) {
+            case "popular":
+                url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1';
+                break;
+            case "search":
+                url = 
+        }
+    };
+
+
     /* -------------------------------Display Movies Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function displayMovies(){
@@ -72,7 +87,7 @@ function MovieList() {
     };
 
 
-    /* ------------------------------ RottenTomatoes Function -------------------------------------------- */
+    /* ------------------------------ Reddit Function -------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
     function reddit() {
         // Get title from movie object and split it into an array
@@ -110,6 +125,13 @@ function MovieList() {
         function getDiscussion(data) {
             // Get URL from top post on page
             var url = data.data.children[0].data.url;
+            for(var i = 0; i < data.data.children.length; i++){
+                console.log(data.data.children[i]);
+               // var postTitle = data.data.children[i].title.toLowerCase();
+               //  if(postTitle.includes(title.toLowerCase())) {
+               //      url = data.data.children[i].data.url;
+               //  }
+            }
 
             // Add .json to use the API
             var sort = "?sort=confidence";
