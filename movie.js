@@ -68,12 +68,12 @@ function MovieList() {
                 loadReviewPage();
             });
             image.mouseenter(function(){
-                console.log(this);
+                // console.log(this);
                 // $(this).addClass("overlay");
                 $(this).parent(".contain-poster").children(".movie_modal").removeClass("hidden_div");
             });
             image.mouseleave(function(){
-                console.log(this);
+                // console.log(this);
                 // $(this).removeClass("overlay");
                 $(this).parent(".contain-poster").children(".movie_modal").addClass("hidden_div");
             });        }
