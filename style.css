@@ -30,7 +30,7 @@ header{
     position:relative;
     z-index:2;
 }
-header > p{
+.home-click > p{
     font-size: 2em;
     margin: 0;
     position: relative;
@@ -166,6 +166,7 @@ iframe {
     position: absolute;
     display: inline-block;
     right: 3%;
+    bottom: 10%;
 }
 .searchWrapper > button {
     position: relative;
@@ -220,4 +221,13 @@ iframe {
     font-family: "Bungee", cursive;
     text-align: center;
     padding-top: 100px;
+}
+
+@media only screen and (max-width: 1367px) {
+    iframe {
+        height: 12%;
+    }
+    .comment {
+        font-size: 1rem;
+    }
 }
