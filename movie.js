@@ -67,15 +67,15 @@ function MovieList() {
                 movieIndex = $(this).attr("index");
                 loadReviewPage();
             });
-            img_container.mouseenter(function(){
+            image.mouseenter(function(){
                 console.log(this);
                 // $(this).addClass("overlay");
-                $(this).children(".movie_modal").removeClass("hidden_div");
+                $(this).parent(".contain-poster").children(".movie_modal").removeClass("hidden_div");
             });
-            img_container.mouseleave(function(){
+            image.mouseleave(function(){
                 console.log(this);
                 // $(this).removeClass("overlay");
-                $(this).children(".movie_modal").addClass("hidden_div");
+                $(this).parent(".contain-poster").children(".movie_modal").addClass("hidden_div");
             });        }
     };
 
