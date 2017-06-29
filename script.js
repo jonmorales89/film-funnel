@@ -163,3 +163,13 @@ function youTube(movieObj){
     }
     searchYouTube(movieObj)
 }
+
+
+$.ajax({
+    url: "https://api.themoviedb.org/3/search/movie?api_key=1c7597f95f188897693c3ccde9dc7a66&language=en-US&query=anchorman&page=1&include_adult=false"
+
+})
+
+
+
+
