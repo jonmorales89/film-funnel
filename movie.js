@@ -11,6 +11,7 @@ function MovieList() {
     var movie_api_key = "1c7597f95f188897693c3ccde9dc7a66";
     var test = "test";
     var self = this;
+    var genres = [{"id": 28, "name": "Action"}, {"id": 12, "name": "Adventure"}, {"id": 16, "name": "Animation"}, {"id": 35, "name": "Comedy"}, {"id": 80, "name": "Crime"}, {"id": 99, "name": "Documentary"}, {"id": 18, "name": "Drama"}, {"id": 10751, "name": "Family"}, {"id": 14, "name": "Fantasy"}, {"id": 36, "name": "History"}, {"id": 27, "name": "Horror"}, {"id": 10402, "name": "Music"}, {"id": 9648, "name": "Mystery"}, {"id": 10749, "name": "Romance"}, {"id": 878, "name": "Science Fiction"}, {"id": 10770, "name": "TV Movie"}, {"id": 53, "name": "Thriller"}, {"id": 10752, "name": "War"}, {"id": 37, "name": "Western"}]
 
     /* -------------------------------Initialize Page Function ------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------- */
@@ -29,12 +30,21 @@ function MovieList() {
         switch(type) {
             case "popular":
                 url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + movie_api_key + '&language=en-US&page=1';
+                $("#movie-list-title").text("In Theaters Now");
                 break;
             case "search":
                 url = "https://api.themoviedb.org/3/search/movie?api_key=" + movie_api_key + "&language=en-US&query=" + inputData + "&page=1&include_adult=false";
+                $("#movie-list-title").text("Showing results for : " + inputData);
+
                 break;
             case "genre":
                 url = "https://api.themoviedb.org/3/genre/" + inputData + "/movies?api_key=1c7597f95f188897693c3ccde9dc7a66&language=en-US&include_adult=false&sort_by=created_at.asc";
+                for(var i = 0; i < genres.length; i++) {
+                    if(genres[i].id == inputData) {
+                        var genreName = genres[i].name;
+                    }
+                }
+                $("#movie-list-title").text(genreName);
                 break;
         }
         console.log(url);
