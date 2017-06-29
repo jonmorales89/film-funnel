@@ -151,6 +151,8 @@ function MovieList() {
                 var commentDiv = $("<div>").addClass("comment").text(comments[i]);
                 $("#reddit-container").append(commentDiv);
             }
+            var rTitle = $('<p>').text("Top Reddit Comments");
+            $("#reddit-container").prepend(rTitle);
         }
     }
 
@@ -163,10 +165,8 @@ function MovieList() {
             for(var i = 0; i < videoArray.length;i++){
                 var ytIframe = $('<iframe>').attr({
                     src: 'https://www.youtube.com/embed/' + videoArray[i].id,
-                    width: '100%',
-                    height: '100%',
                     frameborder: '0',
-                    allowfullscreen: null,
+                    allowfullscreen: ''
                 });
                 $('#youtube-container').append(ytIframe);
             }
