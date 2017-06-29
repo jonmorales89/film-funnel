@@ -169,8 +169,12 @@ iframe {
     width: 100%;
     font-size: 20px;
     color: black;
+    font-family: 'Bungee',cursive;
+    padding: 1%;
 }
-
+.movie_modal > div:first-child {
+    color:white;
+}
 .hidden_div{
     display: none;
 }
