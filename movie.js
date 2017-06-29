@@ -108,6 +108,7 @@ function MovieList() {
         });
 
         function getDiscussion(data) {
+            console.log("data: ", data);
             // Get URL from top post on page
             var url = data.data.children[0].data.url;
 
