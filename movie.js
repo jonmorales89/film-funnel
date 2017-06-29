@@ -152,8 +152,6 @@ function MovieList() {
                 var commentDiv = $("<div>").addClass("comment").text(comments[i]);
                 $("#reddit-container").append(commentDiv);
             }
-            var rTitle = $('<p>').text("Top Reddit Comments");
-            $("#reddit-container").prepend(rTitle);
         }
     }
 
@@ -169,7 +167,7 @@ function MovieList() {
                     frameborder: '0',
                     allowfullscreen: ''
                 });
-                $('#youtube-container').append(ytIframe);
+                $('.iframeWrapper').append(ytIframe);
             }
         }
         function searchYouTube(movieObj){
@@ -184,10 +182,10 @@ function MovieList() {
                     detailLevel: 'low'
                 },
                 success : function(result){
-                    //console.log(result.video);
+                    //console.log(result.video);d
                     displayYouTubeResults(result.video);
                     var ytTitle =  $('<p>').text('Top YouTube Reviews of ' + movieObj.title);
-                    $('#youtube-container').prepend(ytTitle);
+                    $('.ytTitle').append(ytTitle);
                 },
                 error: function(err){
                     console.log(err);
