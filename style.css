@@ -148,3 +148,10 @@ iframe {
     font-family: 'Bungee', cursive;
     padding-left: 10px;
 }
+
+.fail {
+    font-size: 25px;
+    font-family: "Bungee", cursive;
+    text-align: center;
+    padding-top: 100px;
+}
