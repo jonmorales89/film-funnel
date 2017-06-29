@@ -239,7 +239,7 @@ function MovieList() {
                 url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
                 data: {
                     q: movieObj.title + 'movie review',
-                    maxResults: 4,
+                    maxResults: 10,
                     type: 'video',
                     detailLevel: 'low'
                 },
