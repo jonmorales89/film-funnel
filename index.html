@@ -27,13 +27,14 @@
                 var genre = $("#genre-menu").val();
                 movieObj.getNewMovieList("genre", genre);
             });
+
+            // Add click listener to title
+            $(".home-click").click( function() {
+                movieObj.getNewMovieList("popular");
+            });
+
         });
 
-//        window.onscroll = function(ev) {
-//            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-//                console.log("you're at the bottom of the page");
-//            }
-//        };
     </script>
 
 </head>
