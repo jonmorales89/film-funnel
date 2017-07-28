@@ -276,7 +276,7 @@ function MovieList() {
             $.ajax({
                 dataType : 'json',
                 method: 'POST',
-                url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
+                url: 'https://s-apis.learningfuze.com/hackathon/youtube/search.php',
                 data: {
                     q: movieObj.title + 'movie review',
                     maxResults: 10,
