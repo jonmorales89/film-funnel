@@ -133,7 +133,7 @@ iframe {
 }
 .contain-img{
     height: 100%;
-    width: 17.5%;
+    width: 13%;
     float: left;
     background-size: contain;
     background-repeat: no-repeat;
@@ -147,6 +147,7 @@ iframe {
     width: 80%;
     font-family: 'Bungee',cursive;
     color: black;
+    left: 5%;
 }
 
 .comment {
