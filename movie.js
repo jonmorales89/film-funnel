@@ -172,17 +172,18 @@ function MovieList() {
         }
         redditURL += "discussion";
         redditURL += URLcap;
-
+        console.log("redditURL: ", redditURL);
         // Ajax call to search reddit.com/r/movies for the movie discussion page
         $.ajax({
             url: redditURL,
             dataType: 'json',
             method: 'GET',
             success: function(result) {
+                console.log("result: ", result);
                 getDiscussion(result);
             },
-            error: function() {
-                failSafe();
+            error: function(error) {
+                failSafe(error);
                 return;
             }
         });
@@ -190,8 +191,9 @@ function MovieList() {
         // Given the URL, find the discussion
         function getDiscussion(data) {
             try {
+                var url = null;
                 // Get URL from top post on page
-                var url = data.data.children[0].data.url;
+                // var url = data.data.children[0].data.url;
                 // Loop through posts and see if any of them contain the movie title
                 for(var i = 0; i < data.data.children.length; i++){
                     var postTitle = data.data.children[i].data.title.toLowerCase();
@@ -200,15 +202,18 @@ function MovieList() {
                         break;
                     }
                 }
+                if(url === null){
+                    throw new Error("No movie discussion found.");
+                }
             } catch(err){
-                failSafe();
+                failSafe(err);
                 return;
             }
 
             // Add .json to use the API
             var sort = "?sort=confidence";
             var newURL = url + ".json";
-
+            console.log("newURL: ", newURL);
             // Ajax call to get the discussion page json
             $.ajax({
                 url: newURL,
@@ -218,7 +223,7 @@ function MovieList() {
                     getComments(result);
                 },
                 error: function(result) {
-                    failSafe();
+                    failSafe(result);
                     return;
                 }
             })
@@ -227,6 +232,7 @@ function MovieList() {
         // Get the comments from
         function getComments(data){
             // Loop to get all the comments out of the data
+            console.log("data: ",data);
             var comments = [];
             for(var i = 0; i < data[1].data.children.length; i++) {
                 var comment = data[1].data.children[i].data.body;
@@ -238,18 +244,34 @@ function MovieList() {
         // Loop through comments and append them to the DOM
         function displayComments(comments) {
             count = 0;
+            console.log("comments: ",comments);
             for(var i = 0; i < comments.length; i++) {
-                if(count > 9) {break;}
-                if(comments[i]=== undefined ||  comments[i].length < 400 || comments[i].length > 1000) {continue;}
-                count++;
-                var commentDiv = $("<div>").addClass("comment").text(comments[i]);
-                $("#reddit-container").append(commentDiv);
+                if(comments.length < 10){
+                    if(comments[i]=== undefined || comments[i] == '[deleted]') {  // ||  comments[i].length < 400 || comments[i].length > 1000
+                        continue;
+                    }
+                    count++;
+                    var commentDiv = $("<div>").addClass("comment").text(comments[i]);
+                    $("#reddit-container").append(commentDiv);
+                }
+                else{
+                    if(count > 9) {
+                        break;
+                    }
+                    if(comments[i]=== undefined || comments[i].length < 400 || comments[i].length > 1000) {
+                        continue;
+                    }
+                    count++;
+                    var commentDiv = $("<div>").addClass("comment").text(comments[i]);
+                    $("#reddit-container").append(commentDiv);
+                }
+
             }
         }
 
         // This will run if the reddit function fails at some point
-        function failSafe() {
-            console.log("failsafe");
+        function failSafe(error) {
+            console.log("failsafe: ", error);
             var fail = $("<div>").addClass("fail").text("Reddit doesn't have much to say about this movie");
             $("#reddit-container").append(fail);
         }
@@ -295,7 +317,12 @@ function MovieList() {
                 }
             })
         }
-        searchYouTube(movies[movieIndex]);
+        try{
+            searchYouTube(movies[movieIndex]);
+        } catch(err){
+            failSafe(err);
+            return;
+        }
     }
 
 }
