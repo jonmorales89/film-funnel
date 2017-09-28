@@ -1,6 +1,6 @@
 # Film Funnel
 
-Film Funnel - The Internets Opinion
+The Internets Opinion
 
 ## About
 
