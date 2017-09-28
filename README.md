@@ -1,47 +1,17 @@
-# C5.17_hackathon 2
+# Film Funnel
 
-Hackathon project involving the combination of different data sources into an application or game
+Film Funnel - The Internets Opinion
 
-### Requirements
-- Combine at least 3 **external** resources via AJAX requests and present their information in an application
-- Must be documented loosely on JSDOC standards
-- Must be issue-managed via meistertask 
-  - share the meistertask with daniel.paschal@learningfuze.com
-  - name your project 5.17 Team [your team number] Hackathon
+## About
 
+FilmFunnel was created during a 48 hour hackathon with two other developers. The application was developed as a single page application that combined three different API's
 
-### Judging Criteria
-- **Appeal** : is it visually appealing / well put together
-- **Code Quality** : is the code properly formatted, are variables and functions well defined and documented
-- **Presentation** : How well is it presented during the unveiling session
-- **Task / Issue Management** : How well was the development process documented / controlled.  Were there well-defined issues, milestones, and project management
-- **Innovative / Transformative** : Did the project do something new and exciting?  Was it bold and tried to do things that haven't been done much.  Did it combine the data sources together in a way that was more useful than either source by itself
-- **Ease of Use / Understanding** : Was it easy to use the application / game, or if it was more complex, was the application or game able to provide you with tutorials or instructions that made understanding it a breeze.
-
-
-### Teams
-- Team 1
-  - Kieran
-  - Sunoo
-  - Alphonse
-  - Kelsey
-  
-- Team 2
-  - Brian
-  - Insoo
-  - Dennis
-  - Howard
-
-- Team 3
-  - Elias
-  - Khanh
-  - Tim
-  - Adam
-
-- Team 4
-  - Jay
-  - Matt
-  - Jonathan
-
-### Deadline: 
-- 7:00pm Thursday, June 29, 2017
+1. The Movie DB (TMDb)
+	..*Utilized TMDb api to gather list of movies currently playing in theaters, and genre based search bar.
+	..*Gathered detailed information and movie poster image
+2. Reddit
+	..*Upon user selection, movie title would be passed to Reddit API to search and display top comments
+	..*Comments filtered by comment length
+3. YouTube
+	..*Similar to Reddit, upon user selection, movie title would be pased to YouTube API to search and display top movie reviews
+	..*YouTube reviews filtered to top 10
