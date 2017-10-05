@@ -23,7 +23,6 @@
 
             // Add change handler to dropdown
             $("#genre-menu").change(function(){
-                console.log("HEre");
                 var genre = $("#genre-menu").val();
                 movieObj.getNewMovieList("genre", genre);
             });
@@ -33,6 +32,35 @@
                 movieObj.getNewMovieList("popular");
             });
 
+            //mobile menu click hander
+            $(".mobileMenu").click(function() {
+                if($("header > div:first-child").css("display") === "block" && $(".searchWrapper").css("display") === "block"){
+                    $("header > div:first-child").css({ display: "none"});
+                    $(".searchWrapper").css({ display : "none" });
+                    $(".mobileBG").css({ display : "none" });
+                } else {
+                    $("header > div:first-child").css({ display: "block" });
+                    $(".searchWrapper").css({ display : "block" });
+                    $(".mobileBG").css({ display : "block" });
+                }
+            })
+
+            //look for browser resize
+            $( window ).resize(checkWidth);
+
+            //show standard menu on devices with 800px width or larger
+            function checkWidth(){
+                var windowSize = $( window ).width();
+                if( windowSize > 800){
+                    $("header > div:first-child").css({ display: "block"});
+                    $(".searchWrapper").css({ display : "block" });
+                    $(".mobileBG").css({ display : "none" });
+                } else {
+                    $("header > div:first-child").css({ display: "none"});
+                    $(".searchWrapper").css({ display : "none" });
+                    $(".mobileBG").css({ display : "none" });
+                }
+            }
         });
 
     </script>
@@ -41,7 +69,7 @@
 <body>
     <header> 
         <div>
-            <select id = "genre-menu">
+            <select id="genre-menu">
                 <option value="" disabled selected>Genre</option>
             </select>
         </div>
@@ -53,7 +81,12 @@
             <input placeholder="search">
             <button><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
         </div>
+        <div class="mobileMenu">
+            <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+        </div>
     </header>
+    <div class="mobileBG">
+    </div>
     <p id="movie-list-title"></p>
     <div id = "main-content"></div>
 </body>
