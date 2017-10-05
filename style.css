@@ -6,7 +6,7 @@ img{
     width: 100%;
     height: 100%;
 }
-.container > div{
+.film-container > div{
     width: 19%;
     height: 30%;
     display: inline-block;
@@ -14,7 +14,7 @@ img{
     margin-bottom: 10px;
     box-shadow: 0px 0px 20px 0px rgba(3,3,3,0.5)
 }
-.container > p {
+.film-container > p {
     padding-top: 5px;
     padding-left: 10px;
     font-family: 'Bungee',cursive;
@@ -77,17 +77,13 @@ small {
     z-index: 1;
 }
 #movie-info {
-    width: 100%;
-    height: 35vh;
-    margin-bottom: 2vh;
-    padding: 30px;
+    padding: 25px 0;
 }
 
 #review-container {
     width: 100%;
-    /*height: 80vh;*/
     font-size: 0px;
-    position: relative;
+    display: table;
 }
 
 .box {
@@ -111,7 +107,7 @@ small {
 
 #youtube-container {
     background-color: #bb0000;
-    display:table-cell
+    display: table-cell;
 }
 #youtube-container > div > p {
     font-family: 'Bungee', cursive;
@@ -132,8 +128,8 @@ iframe {
     box-shadow: 0px 0px 10px 2px rgba(3,3,3,0.5);
 }
 .contain-img{
-    height: 100%;
-    width: 13%;
+    height: 260px;
+    width: 160px;
     float: left;
     background-size: contain;
     background-repeat: no-repeat;
@@ -166,7 +162,7 @@ iframe {
 .searchWrapper {
     position: absolute;
     display: inline-block;
-    right: 3%;
+    right: 0;
     bottom: 10%;
 }
 .searchWrapper > button {
@@ -185,7 +181,7 @@ iframe {
     position: absolute;
     height: 100%;
     width: 100%;
-    font-size: 20px;
+    font-size: 15px;
     color: black;
     font-family: 'Bungee',cursive;
     padding: 1%;
@@ -201,8 +197,7 @@ iframe {
 }
 
 .modal_description {
-    font-size: .8em;
-    margin-top: 5%;
+    font-size: 12px;
 }
 .fail {
     font-size: 25px;
@@ -211,13 +206,39 @@ iframe {
     padding-top: 100px;
 }
 
-@media only screen and (max-width: 1023px) {
-    #youtube-container {
+@media only screen and (max-width: 1024px) {
+    #youtube-container, #reddit-container {
         width: 100%;
         display: inline-block;
     }
-    #reddit-container {
-        width: 100%;
-        display: inline-block;
+    #review-container {
+        display: block;
+    }
+}
+@media only screen and (max-width: 950px) {
+    .film-container > div {
+        width: 24%;
+    }
+    .home-click > p {
+        font-size: 1.25em;
+    }
+    small {
+        font-size: 1em;
+        bottom: 10px;
+    }
+}
+@media only screen and (max-width: 650px) {
+    .film-container > div {
+        width: 32%;
+    }
+    iframe {
+        height: 70vh;
+    }
+
+}
+
+@media only screen and (max-width: 450px) {
+    .film-container > div {
+        width: 49%;
     }
 }

@@ -104,9 +104,25 @@ function MovieList() {
             // Create modal
             var modal = $("<div>").addClass("movie_modal hidden_div");
             $("<div>").html(movies[i].title).appendTo(modal);
-            var modal_description = $("<div>").addClass("modal_description").html(movies[i].overview).appendTo(modal);
+            var movieDesc = movies[i].overview;
+            // Check if movie description is longer than 200 characters
+            if(movieDesc.length > 150){
+                movieDesc = movieDesc.substring(0,150);
+            // Account for if substring cuts the string in the middle of a word
+                if(movieDesc[movieDesc.length-1] !== " "){
+                    for(var j = movieDesc.length-1; j >= 0; j--){
+                        if(movieDesc[j] === " "){
+                            movieDesc = movieDesc.substring(0, j) + " ...";
+                            break;
+                        }
+                    }
+                } else {
+                    movieDesc = movieDesc + " ..."
+                }
+            }
+            var modal_description = $("<div>").addClass("modal_description").html(movieDesc).appendTo(modal);
             // Create container for image
-            var img_container = $("<div>").addClass("contain-poster").css("position","relative").append(modal, image).appendTo(".container");
+            var img_container = $("<div>").addClass("contain-poster").css("position","relative").append(modal, image).appendTo(".film-container");
             img_container.attr("index",i);
 
             // Add click listener to container that loads the review page
@@ -150,7 +166,7 @@ function MovieList() {
         // Set the html content
         $(".movie-title").html(movies[movieIndex].title);
         $(".description-div > span").html(movies[movieIndex].overview);
-        $(".contain-img").css("background-image","url(https://image.tmdb.org/t/p/original" + movies[movieIndex].poster_path+ ")");
+        $(".contain-img").css({ "background-image" : "url(https://image.tmdb.org/t/p/original" + movies[movieIndex].poster_path + ")"});
         $(".rating-div > span").html(movies[movieIndex].vote_average + "/10");
     };
 
