@@ -29,6 +29,7 @@ header{
     box-shadow: 0 10px 5px rgba(3,3,3,0.5);
     position:relative;
     z-index:3;
+    height: 92px;
 }
 .home-click > p{
     font-size: 2em;
