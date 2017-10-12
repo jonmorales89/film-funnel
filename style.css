@@ -291,4 +291,7 @@ iframe {
     small {
         top: 30px;
     }
+    header {
+        height: 92px;
+    }
 }
