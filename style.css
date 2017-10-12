@@ -29,7 +29,6 @@ header{
     box-shadow: 0 10px 5px rgba(3,3,3,0.5);
     position:relative;
     z-index:3;
-    height: 92px;
 }
 .home-click > p{
     font-size: 2em;
@@ -284,4 +283,12 @@ iframe {
         font-size: 13px;
     }
 
+}
+
+
+/* using device-width and device-pixel-ration to account for nav error on mobile browsers */
+@media only screen and (min-device-width: 360px) and (-webkit-min-device-pixel-ratio: 3) {
+    small {
+        top: 30px;
+    }
 }
